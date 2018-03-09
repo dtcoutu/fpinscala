@@ -18,4 +18,9 @@ class GettingStartedTest extends FlatSpec with Matchers {
 	"fib" should "return 5 given 6" in {
 		MyModule.fib(6) shouldBe 5
 	}
+
+	"isSorted" should "work for a standard numeric sort" in {
+		PolymorphicFunctions.isSorted(Array(1,2,8,10), (a: Int, b: Int) => a < b) shouldBe true
+		PolymorphicFunctions.isSorted(Array(1,2,19,10), (a: Int, b: Int) => a < b) shouldBe false
+	}
 }
