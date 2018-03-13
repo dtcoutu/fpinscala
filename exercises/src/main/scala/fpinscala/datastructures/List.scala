@@ -7,6 +7,22 @@ which may be `Nil` or another `Cons`.
  */
 case class Cons[+A](head: A, tail: List[A]) extends List[A]
 
+/*
+ * Exercise 3.1: What will be the result of the following match expression?
+ *
+ * val x = List(1,2,3,4,5) match {
+ *   case Cons(x, Cons(2, Cons(4, _))) => x
+ *   case Nil => 42
+ *   case Cons(x, Cons(y, Cons(3, Cons(4, _)))) => x + y
+ *   case Cons(h, t) => h + sum(t)
+ *   case _ => 101
+ * }
+ *
+ * Answer: 3
+ *
+ * Though I tried running in the REPL and it kept complaining about the Cons and Nil objects.
+ */
+
 object List { // `List` companion object. Contains functions for creating and working with lists.
   def sum(ints: List[Int]): Int = ints match { // A function that uses pattern matching to add up a list of integers
     case Nil => 0 // The sum of the empty list is 0.
@@ -49,8 +65,11 @@ object List { // `List` companion object. Contains functions for creating and wo
   def product2(ns: List[Double]) =
     foldRight(ns, 1.0)(_ * _) // `_ * _` is more concise notation for `(x,y) => x * y`; see sidebar
 
-
-  def tail[A](l: List[A]): List[A] = ???
+  // Exercise 3.2
+  def tail[A](l: List[A]): List[A] = l match {
+    case Nil => Nil
+    case Cons(x, xs) => xs
+  }
 
   def setHead[A](l: List[A], h: A): List[A] = ???
 
