@@ -86,7 +86,11 @@ object List { // `List` companion object. Contains functions for creating and wo
     case Cons(x, xs) => if (f(x)) dropWhile(xs, f) else l
   }
 
-  def init[A](l: List[A]): List[A] = ???
+  def init[A](l: List[A]): List[A] = l match {
+      case Nil => Nil
+      case Cons(_, Nil) => Nil
+      case Cons(x, xs) => Cons(x, init(xs))
+    }
 
   def length[A](l: List[A]): Int = ???
 

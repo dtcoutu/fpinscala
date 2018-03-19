@@ -27,4 +27,9 @@ class ListTest extends FlatSpec with Matchers {
 		fpinscala.datastructures.List.dropWhile(List(1,2,3), (a:Int) => a < 5) shouldBe Nil
 		fpinscala.datastructures.List.dropWhile(Nil, (a:Int) => a < 5) shouldBe Nil
 	}
+
+	"init" should "drop the last element of the given list" in {
+		fpinscala.datastructures.List.init(List(1,2,3,4)) shouldBe List(1,2,3)
+		fpinscala.datastructures.List.init(Nil) shouldBe Nil
+	}
 }
