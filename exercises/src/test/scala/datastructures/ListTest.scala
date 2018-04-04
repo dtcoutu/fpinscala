@@ -32,4 +32,19 @@ class ListTest extends FlatSpec with Matchers {
 		fpinscala.datastructures.List.init(List(1,2,3,4)) shouldBe List(1,2,3)
 		fpinscala.datastructures.List.init(Nil) shouldBe Nil
 	}
+
+	"passing Nil and Cons" should "work" in {
+		fpinscala.datastructures.List.foldRight(List(1,2,3), Nil:List[Int])(Cons(_,_)) shouldBe fpinscala.datastructures.Cons(1, Cons(2, Cons(3, Nil)))
+	}
+
+	"length" should "return the number of items" in {
+		fpinscala.datastructures.List.length(List(1,2)) shouldBe 2
+		fpinscala.datastructures.List.length(List()) shouldBe 0
+		fpinscala.datastructures.List.length(List(1,4,5,6)) shouldBe 4
+	}
+
+	"foldLeft" should "process a list with a function" in {
+		fpinscala.datastructures.List.foldLeft(List(1,2), 0)(_ + _) shouldBe 3
+		fpinscala.datastructures.List.foldLeft(List(4,1,3), 1)(_ * _) shouldBe 12
+	}
 }

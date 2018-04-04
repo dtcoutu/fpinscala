@@ -53,6 +53,14 @@ object List { // `List` companion object. Contains functions for creating and wo
       case Cons(h,t) => Cons(h, append(t, a2))
     }
 
+  /* Exercise 3.8
+   * See what happens when you pass Nil and Cons themselves to foldRight.  What do you think this
+   * says about the relationship between foldRight and the data constructors of List?
+   *
+   * I'm not sure I'm understanding the question correctly, but to me it seems they are not
+   * coupled.  Still not sure even after looking at the answer, but their assertion that we get
+   * back the same list is what I expected - guess I just didn't see that as a big deal.
+   */
   def foldRight[A,B](as: List[A], z: B)(f: (A, B) => B): B = // Utility functions
     as match {
       case Nil => z
@@ -62,6 +70,13 @@ object List { // `List` companion object. Contains functions for creating and wo
   def sum2(ns: List[Int]) =
     foldRight(ns, 0)((x,y) => x + y)
 
+  /* Exercise 3.7
+   * Can product, implemented using foldRight, immediately halt the recursion and return 0.0
+   * if it encounters a 0.0?  Why or why not?
+   *
+   * foldRight would need to know what function it is being applied to know that it should short
+   * circuit the logic.
+   */
   def product2(ns: List[Double]) =
     foldRight(ns, 1.0)(_ * _) // `_ * _` is more concise notation for `(x,y) => x * y`; see sidebar
 
@@ -92,9 +107,18 @@ object List { // `List` companion object. Contains functions for creating and wo
       case Cons(x, xs) => Cons(x, init(xs))
     }
 
-  def length[A](l: List[A]): Int = ???
+  // Exercise 3.9
+  def length[A](l: List[A]): Int = foldRight(l, 0)((a,b) => b+1)
 
-  def foldLeft[A,B](l: List[A], z: B)(f: (B, A) => B): B = ???
+  // Exercise 3.10
+  def foldLeft[A,B](l: List[A], z: B)(f: (B, A) => B): B = {
+    def go(remaining: List[A], acc: B): B = remaining match {
+      case Nil => acc
+      case Cons(x, xs) => go(xs, f(acc, x))
+    }
+
+    go(l, z)
+  }
 
   def map[A,B](l: List[A])(f: A => B): List[B] = ???
 }
