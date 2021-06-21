@@ -145,5 +145,23 @@ object List { // `List` companion object. Contains functions for creating and wo
   def length3[A](l: List[A]): Int =
     foldLeft(l, 0)((acc, _) => acc+1)
 
+  // Exercise 3.12
+  def reverse[A](l: List[A]): List[A] =
+    foldLeft(l, List())((acc, a) => Cons(a, acc))
+
+  // Exercise 3.13
+  // Can you write foldLeft in terms of foldRight?  How about the other way around?
+  def foldLeftViaFoldRight[A,B](l: List[A], z: B)(f: (B, A) => B): B = {
+    // Using (b:B) => b allows the evaluation of the function to be delayed...
+    foldRight(l, (b:B) => b)((a, g) => b => g(f(b, a)))(z)
+  }
+
+  def foldRightViaFoldLeft[A,B](as: List[A], z: B)(f: (A, B) => B): B =
+    foldLeft(reverse(as), z)((b, a) => f(a, b))
+
+  // Exercise 3.14
+  def append2[A](a1: List[A], a2: List[A]): List[A] =
+    foldRight(a2, a1)(Cons(_, _))
+
   def map[A,B](l: List[A])(f: A => B): List[B] = ???
 }
