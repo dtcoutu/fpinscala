@@ -55,7 +55,7 @@ object MyModule {
 
   // We can generalize `formatAbs` and `formatFactorial` to
   // accept a _function_ as a parameter
-  def formatResult(name: String, n: Int, f: Int => Int) = {
+  def formatResult(name: String, n: Int, f: Int => Int): String = {
     val msg = "The %s of %d is %d."
     msg.format(name, n, f(n))
   }
@@ -153,12 +153,12 @@ object PolymorphicFunctions {
     @annotation.tailrec
     def go(first: A, second: A, remaining: Array[A]): Boolean = {
       if (gt(first, second)) {
-        if (remaining.size > 0) go(second, remaining.head, remaining.drop(1))
+        if (remaining.length > 0) go(second, remaining.head, remaining.drop(1))
         else true
       } else false
     }
 
-    if (as.size <= 1) true
+    if (as.length <= 1) true
     else go(as.head, as.drop(1).head, as.drop(2))
   }
 
