@@ -163,5 +163,12 @@ object List { // `List` companion object. Contains functions for creating and wo
   def append2[A](a1: List[A], a2: List[A]): List[A] =
     foldRight(a2, a1)(Cons(_, _))
 
+  // Exercise 3.15
+  def concatLists[A](l: List[List[A]]): List[A] =
+    foldRight(l, List())((a, b) => foldRight(a, b)(Cons(_, _)))
+  // foldRight(l, Nil:List[A])(append)
+  //  - I missed that append is basically the same thing as what I wrote.
+  //  - What's the difference between List() and Nil:List[A]?
+
   def map[A,B](l: List[A])(f: A => B): List[B] = ???
 }
