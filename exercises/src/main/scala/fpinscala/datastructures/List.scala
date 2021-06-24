@@ -170,5 +170,27 @@ object List { // `List` companion object. Contains functions for creating and wo
   //  - I missed that append is basically the same thing as what I wrote.
   //  - What's the difference between List() and Nil:List[A]?
 
-  def map[A,B](l: List[A])(f: A => B): List[B] = ???
+  // Exercise 3.16
+  def add1_original(l: List[Int]): List[Int] = {
+    @tailrec
+    def go(l: List[Int], acc: List[Int]): List[Int] = l match {
+      case Nil => acc
+      case Cons(h, t) => go(t, Cons(h+1, acc))
+    }
+
+    go(l, List())
+  }
+
+  // Provided in the answer key...I'm still working on reusing when building something up...
+  def add1(l: List[Int]): List[Int] = {
+    foldRight(l, Nil:List[Int])((a, b) => Cons(a + 1, b))
+  }
+
+  // Exercise 3.17
+  def toString(l: List[Double]): List[String] =
+    foldRight(l, Nil:List[String])((h, t) => Cons(h.toString, t))
+
+  // Exercise 3.18
+  def map[A,B](l: List[A])(f: A => B): List[B] =
+    foldRight(l, Nil:List[B])((h, t) => Cons(f(h), t))
 }
